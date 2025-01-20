@@ -1,6 +1,8 @@
-import numpy as np
 import os
-from utils import kdtree
+
+import numpy as np
+
+import kdtree
 
 np.set_printoptions(precision=4)
 
@@ -60,7 +62,7 @@ class ScanContextManager:
         return self.pt_clouds[node_idx]
 
     def initialization(self, pt_cloud):
-        from utils.point_cloud_utils import random_sampling
+        from point_cloud_utils import random_sampling
         pt_cloud = random_sampling(pt_cloud, num_points=15000)
         sc = ScanContextManager.pt_cloud_to_sc(pt_cloud
                                                , self.shape, self.max_length)
@@ -76,8 +78,8 @@ class ScanContextManager:
             return self.livox_init_pose(idx, pt_cloud[:, :3], yaw_diff_deg)
 
     def livox_init_pose(self, matched_idx, curr_scan, yaw_diff_angle):
-        from utils.point_cloud_utils import random_sampling
-        from utils import icp_utlis as ICP
+        from point_cloud_utils import random_sampling
+        import icp_utlis as ICP
         pt_cloud_file = os.path.join(
             self.file_path, "pcd_npy") + "/pc_" + str(matched_idx) + ".npy"
 
@@ -219,6 +221,7 @@ class ScanContextManager:
             sc_file_name = "sc_" + str(i) + ".npy"
             np.save(os.path.join(sc_file_path, sc_file_name),
                     self.scan_contexts[i])
+        print("Successfully save SC")
 
     def load_sc(self, sc_file_path=None):
         if sc_file_path is None:

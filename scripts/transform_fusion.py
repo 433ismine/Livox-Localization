@@ -1,9 +1,9 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # coding=utf8
 from __future__ import print_function, division, absolute_import
 
+import _thread
 import copy
-import thread
 import time
 
 import numpy as np
@@ -15,7 +15,6 @@ from nav_msgs.msg import Odometry
 
 cur_odom_to_baselink = None
 cur_map_to_odom = None
-
 
 def pose_to_mat(pose_msg):
     return np.matmul(
@@ -38,10 +37,10 @@ def transform_fusion():
         else:
             T_map_to_odom = np.eye(4)
 
-        br.sendTransform(tf.transformations.translation_from_matrix(T_map_to_odom),
-                         tf.transformations.quaternion_from_matrix(T_map_to_odom),
-                         rospy.Time.now(),
-                         'camera_init', 'map')
+        # br.sendTransform(tf.transformations.translation_from_matrix(T_map_to_odom),
+        #                  tf.transformations.quaternion_from_matrix(T_map_to_odom),
+        #                  rospy.Time.now(),
+        #                  'camera_init', 'map')
         if cur_odom is not None:
             # 发布全局定位的odometry
             localization = Odometry()
@@ -70,19 +69,34 @@ def cb_save_map_to_odom(odom_msg):
     cur_map_to_odom = odom_msg
 
 
+def cb_delay_pub_init_pose(event):
+    global cur_map_to_odom, init_map_to_odom
+    cur_map_to_odom = init_map_to_odom
+
+
 if __name__ == '__main__':
     # tf and localization publishing frequency (HZ)
     FREQ_PUB_LOCALIZATION = 50
 
     rospy.init_node('transform_fusion')
     rospy.loginfo('Transform Fusion Node Inited...')
+    init_map_to_odom = Odometry()
+    init_map_to_odom.pose.pose.position.x = rospy.get_param("/global_localization/pose_x")
+    init_map_to_odom.pose.pose.position.y = rospy.get_param("/global_localization/pose_y")
+    init_map_to_odom.pose.pose.position.z = rospy.get_param("/global_localization/pose_z")
+    init_map_to_odom.pose.pose.orientation.x = rospy.get_param("/global_localization/rot_x")
+    init_map_to_odom.pose.pose.orientation.y = rospy.get_param("/global_localization/rot_y")
+    init_map_to_odom.pose.pose.orientation.z = rospy.get_param("/global_localization/rot_z")
+    init_map_to_odom.pose.pose.orientation.w = rospy.get_param("/global_localization/rot_w")
+    rospy.loginfo('Transform Fusion Node Inited... %s', init_map_to_odom)
 
     rospy.Subscriber('/Odometry', Odometry, cb_save_cur_odom, queue_size=1)
     rospy.Subscriber('/map_to_odom', Odometry, cb_save_map_to_odom, queue_size=1)
 
     pub_localization = rospy.Publisher('/localization', Odometry, queue_size=1)
+    rospy.Timer(rospy.Duration(6), cb_delay_pub_init_pose, True)
 
     # 发布定位消息
-    thread.start_new_thread(transform_fusion, ())
+    _thread.start_new_thread(transform_fusion, ())
 
     rospy.spin()

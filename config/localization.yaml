@@ -1,0 +1,98 @@
+scan_voxel_size: 0.1
+map_voxel_size: 0.1
+freq_localization: 0.33
+localization_th: 0.02
+localization_failed_limit : 2
+
+sac_ia_min_sample_distance: 0.01
+sac_ia_max_correspondence_distance: 10.0
+sac_ia_nr_iterations: 2000
+
+icp_max_correspondence_distance: 11
+icp_nr_iterations: 20
+icp_transformation_epsilon: 1e-6
+
+ndt_resolution: 1.0
+ndt_step_size: 0.1
+ndt_nr_iterations: 100
+ndt_transformation_epsilon: 0.1
+
+icp_nl_max_correspondence_distance: 5
+icp_nl_nr_iterations: 120
+icp_nl_transformation_epsilon: 1e-6
+
+#pose_x: 0.0
+#pose_y: 0.0
+#pose_z: 0.0
+#rot_x: 0.0
+#rot_y: 0.0
+#rot_z: 0.0
+#rot_w: 1.0 #blue
+
+pose_x: 0.058689790280756354
+pose_y: 10.715659971684978
+pose_z: -10.598853670402336
+rot_x: -0.014708433447944114
+rot_y: 0.7065820375190169
+rot_z: 0.707444076025481
+rot_w: 0.0069545335886401025 #red
+
+#pose_x: 2.0377684777710625
+#pose_y: -0.0060349420012630935
+#pose_z: 0.08104426749866322
+#rot_x: -0.01000478442017656
+#rot_y: 0.42480261380080425
+#rot_z: 0.4357827719672201
+#rot_w: 0.7934330590877098 #blue_sentry_patrol_left_up
+
+#pose_x: 3.449930688868522
+#pose_y: 1.6959741928904495
+#pose_z: -1.5893428416499387
+#rot_x: -0.01255390314196695
+#rot_y: 0.6300106948354286
+#rot_z: 0.6339232202311337
+#rot_w: -0.44840860246060893 #close to blue outpost
+
+#pose_x: 2.086768023667986
+#pose_y: -1.258858767610044
+#pose_z: 1.3234683645431053
+#rot_x: -0.001230867894195772
+#rot_y: 0.06420501938503823
+#rot_z: 0.07309571180722933
+#rot_w: 0.9952553528443764 #blue_sentry_patrol_right_up
+
+#pose_x: 7.0716814866864475
+#pose_y: 6.885907333273442
+#pose_z: -6.426983072729323
+#rot_x: -0.0037438015259746798
+#rot_y: 0.3436465825219063
+#rot_z: 0.3518081713053503
+#rot_w: 0.8707031761018964  attack blue outpost on stair
+
+#pose_x: -3.451822207410896
+#pose_y: 8.901013176424124
+#pose_z: -8.874482075830217
+#rot_x: -0.005694803979205957
+#rot_y: 0.3210981198894925
+#rot_z: 0.33092309548722115
+#rot_w: 0.8873294041584677  #close to red outpost
+
+
+#pose_x: 6.625191759569843
+#pose_y: -2.7663024677501
+#pose_z: 2.866279211324641
+#rot_x: -0.0043467055865531986
+#rot_y: 0.5492512593183985
+#rot_z: 0.5578564879828521
+#rot_w: 0.6221738495815569 #blue supply area
+#
+#pose_x: -7.043526284092821
+#pose_y: 4.197141481010501
+#pose_z: -4.093220151371731
+#rot_x: -0.011877650842941907
+#rot_y: 0.6334944148885029
+#rot_z: 0.6418865452118117
+#rot_w: -0.4318858770457364  #blue on stair
+
+
+

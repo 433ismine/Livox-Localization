@@ -1,0 +1,4 @@
+sensor_msgs/PointCloud2 cloud_msg
+
+---
+geometry_msgs/PoseStamped pose
